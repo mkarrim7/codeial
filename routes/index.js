@@ -3,6 +3,5 @@ const router=express.Router();
 const homeController=require('../controllers/home_controller');
 router.get('/',homeController.home);
 router.use('/users',require('./users'));
-router.use('/users',require('./demo'));
 console.log("router is working");
 module.exports=router;
