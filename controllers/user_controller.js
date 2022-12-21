@@ -6,28 +6,48 @@ module.exports.profile=function(req,res){
 }
 
 module.exports.loginPage=function(req,res){
-    res.render('loginPage',{
+    res.render('user_sign_in',{
       title:"Login Page"
     });
   }
   
  module.exports.signup=function(req,res){
-    res.render('signupPage',{
+    res.render('user_sign_up',{
         title:"SIGN UP"
     });
 }
 module.exports.create=function(req,res){
-    console.log("??????????",req.body);
-    User.create(
-       req.body
-    ,function(error,newSchema){
-       if(error)
+  if(req.body.password!=req.body.confirm_password)
+  {
+    return res.redirect('back');
+  }
+  User.findOne({email:req.body.email},function(error,user){
+    if(error)
+    {
+      console.log("Error in finding user in signUp");
+      return;
+    }
+    if(!user)
+    {
+      User.create(req.body,function(error,user)
+      {
+        if(error)
         {
-            console.log("Error occured while pushing the data to data base",error);
-            return;
-        } 
-        console.log("*******",newSchema);
-      });
-    
+          console.log("Error in creating the user while signing up");
+          return;
+        }
+        return res.redirect('/users/signIn');
 
+      })
+    }
+    else{
+      return res.redirect('back');
+    }
+  })
+}
+
+module.exports.createSession=function(req,res)
+{
+  console.log("Its working fine");
+  return res.redirect('/');
 }
