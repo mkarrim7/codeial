@@ -27,12 +27,12 @@ app.set('views','./views');
 app.use(session({
     name:'codeial',
     secret:'blahsomething',
-    saveUninitialized:'false',
-    resave:'false',
+    saveUninitialized:false,
+    resave:false,
     cookie:{
-        maxAge:(1000*60*100)
+        maxAge:(1000*60*60)
     }
-}))
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);

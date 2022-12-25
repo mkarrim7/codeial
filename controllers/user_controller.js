@@ -48,6 +48,5 @@ module.exports.create=function(req,res){
 
 module.exports.createSession=function(req,res)
 {
-  console.log("Its working fine");
   return res.redirect('/');
 }
