@@ -1,2 +1,38 @@
 <h1>Codeial/<%= title%></h1>
-       
+
+<section>
+    <%if(locals.user){%>
+    <form action="/post/add-post"  method="post">
+        <textarea name="content" placeholder="type here..." cols="30" rows="10"></textarea>
+        <input type="submit" value="POST">
+    </form>
+    <%}%>
+</section>
+
+<div>
+    <%for(post of posts){%>
+    <p><%= post.content%>&nbsp; by &nbsp;<%= post.user.name%></p>
+    
+    <div>
+    <%if(locals.user){%>
+        <form action="/comment/add-post" method="post">
+            <input type="text" name="content" placeholder="Type here to add a comment">
+            <input type="hidden" name="post" value="<%=post._id%>">
+            <input type="submit" value="Add comment">
+        </form>    
+    <%}%>
+    <div id="comment-container">
+    <ul id="post-comments-<%=post._id%>">
+       <%for(comment of posts.comments){%>
+       <p>
+        <%= comment.content%>
+        <br>
+        <%= comment.user.name%>
+       </p> 
+       <%}%>
+    </ul>
+    </div>
+    <%}%>
+    </div>
+</div>
+

@@ -6,6 +6,7 @@ console.log("<------ USERS ROUTER IS WORKING ----->")
 router.get('/signIn',userController.loginPage);
 router.get('/profile',passport.checkauthentication,userController.profile);
 router.get('/signUp',userController.signup);
+router.get('/sign-out',userController.destroySession);
 router.post('/create',userController.create);
 router.post('/create-session',passport.authenticate(
     'local',
