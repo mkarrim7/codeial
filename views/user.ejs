@@ -1,4 +1,14 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>Codeial/<%= title%></h1>
-<h1>HI <%= locals.user.name%></h1>
+<% if(locals.user.id==profile_user.id){%>
+   <form action="/users/update"enctype="multipart/form-data" method="post">
+    <input type="text" name="name">
+    <input type="text" name="email">avatar
+    <input type="file" name="avatar" placeholder="Profile Picture">
+    <input type="submit" value="update">
+   </form>
+<%}else{%>
+    <h1>HI <%= profile_user.name%></h1>
+    <h1><%= profile_user.email%></h1>
+<%}%>
        

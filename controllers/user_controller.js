@@ -2,11 +2,30 @@ const User=require('../models/userdetails');
 
 
 module.exports.profile=function(req,res){
-  console.log("<<<>>>>",req.user);
-  console.log("cookies",req.cookies);
-    return res.render('user',{
-        title:"User"
+    User.findById(req.params.id,function(error,user){
+      if(error)
+      {
+        console.log("Error occured while entering to the profile page");
+        return res.redirect('back');
+      }
+      console.log("ProfileUser",user);
+      return res.render('user',{
+        title:"User",
+        profile_user:user
     })
+    })
+    
+}
+module.exports.update=function(req,res){
+  User.findByIdAndUpdate(req.user.id,req.body,function(error,user)
+  {
+    if(error)
+    {
+    return res.status(401).send('unauthorized');
+    }else{
+      return res.redirect('back');
+    }
+  })
 }
 
 module.exports.loginPage=function(req,res){

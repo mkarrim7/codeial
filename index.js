@@ -6,9 +6,11 @@ const db=require('./config/mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passporLocal=require('./config/passport-local-strategy');
+const passportJWT=require('./config/passport-jwt-strategy');
 const User=require('./models/userdetails');
 const MongoStore=require('connect-mongo');
 const sassMiddleware=require('node-sass-middleware');
+const flash = require('connect-flash');
 app.use(sassMiddleware({
     src:'./assets/scss',
     dest:'./assets/css',
@@ -47,6 +49,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+app.use(flash());
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 app.use('/post',require('./routes/post'));
